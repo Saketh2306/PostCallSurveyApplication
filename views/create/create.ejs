@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Survey Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet prefetch' href='https://necolas.github.io/normalize.css/3.0.1/normalize.css'>
+    <link rel="stylesheet" href="css/home.css">
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #ddd;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #666;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #4CAF50;
+        }
+
+        input[type=submit] {
+            background-color: #ADD8E6;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: center;
+        }
+        .btn {
+          background-color: #f4511e;
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-align: center;
+          font-size: 16px;
+          margin: 4px 2px;
+          opacity: 0.6;
+          transition: 0.3s;
+        }
+        .btn:hover {opacity: 1}
+
+        #1, #2, #3, #4, #5 {
+          display: none;
+        }
+    </style>
+    <link rel="ICON" href="img/favicon.ico" type="image/ico" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function showOnChange() {
+      var whichOp = document.getElementById("select_type").selectedIndex;
+      var c = document.getElementsByClassName("block");
+      for (len = 0;len < c.length; len++)
+        c[len].style.display = "none";
+      c[whichOp].style.display = "block";
+    }
+    </script>
+</head>
+
+<body>
+<ul>
+  <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/speechsoft.png" alt="Smiley face" width="120" height="40"></li>
+  <li style="float:right"><a href="/login">Logout</a></li>
+  <li style="float:right"><a href="/home">Home</a></li>
+  <li style="float:right"><a href="/create">Create a Survey</a></li>
+  <li style="float:right"><a href="/edit">Edit a Survey</a></li>
+  <li style="float:right"><a href="/queue">Add queues to a survey</a></li>
+  <li style="float:right"><a href="/activate">Activate/Deactivate Queues</a></li>
+</ul>
+<div class="container">
+<br>
+<br>
+<br>
+<div class="row">
+<div class="col-sm-8 offset-sm-4">
+<br>
+  <form action="/create" method = "POST">
+    <div class="form-group">
+	<div class="col-6">
+	<% if(locals.error != null ) { %>
+	  <label for = "alert" class="text-danger"><%= error %></label><br>
+	<% } %>
+	<h3> Create a Survey </h3> <br><br>
+      <label for="email">Survey Name:</label>
+      <input type="text" class="form-control" id="surveyname" placeholder="Enter Survey Name" name="surveyname">
+	</div>
+    </div>
+    <div class="form-group">
+    <% var i = 0 %>
+      <fieldset>
+        <label for="select-report">Select number of question in the survey </label>
+        <select name="select_type" id="select_type" onchange="showOnChange()">
+          <option value = "1"> 1 </option>
+          <option value = "2"> 2 </option>
+          <option value = "3"> 3 </option>
+          <option value = "4"> 4 </option>
+          <option value = "5"> 5 </option>
+        </select>
+      </fieldset>
+    </div>
+
+    <div class="block" id="1" style="display: none;">
+        <div class="form-group">
+    	<div class="col-6">
+          <label for="pwd">Question 1:</label>
+          <input type="text" class="form-control" id="question1" placeholder="Enter a question" name="question1"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype1" id="questiontype1">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority1" id="priority1">
+             <option value = "1" > 1 </option>
+           </select>
+    	</div>
+        </div>
+    </div>
+
+    <div class="block" id="2" style="display: none;">
+        <div class="form-group">
+    	<div class="col-6">
+          <label for="pwd">Question 1:</label>
+          <input type="text" class="form-control" id="question1" placeholder="Enter a question" name="question1"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype1" id="questiontype1">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority1" id="priority1">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+           </select>
+          <br>
+          <label for="pwd">Question 2:</label>
+          <input type="text" class="form-control" id="question2" placeholder="Enter a question" name="question2"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype2" id="questiontype2">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority2" id="priority2">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+           </select>
+    	</div>
+        </div>
+    </div>
+
+    <div class="block" id="3" style="display: none;">
+        <div class="form-group">
+    	<div class="col-6">
+          <label for="pwd">Question 1:</label>
+          <input type="text" class="form-control" id="question1" placeholder="Enter a question" name="question1"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype1" id="questiontype1">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority1" id="priority1">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+           </select>
+          <br>
+          <label for="pwd">Question 2:</label>
+          <input type="text" class="form-control" id="question2" placeholder="Enter a question" name="question2"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype2" id="questiontype2">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority2" id="priority2">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+           </select>
+          <br>
+          <label for="pwd">Question 3:</label>
+          <input type="text" class="form-control" id="question3" placeholder="Enter a question" name="question3"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype3" id="questiontype3">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority3" id="priority3">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+           </select>
+    	</div>
+        </div>
+    </div>
+
+    <div class="block" id="4" style="display: none;">
+        <div class="form-group">
+    	<div class="col-6">
+          <label for="pwd">Question 1:</label>
+          <input type="text" class="form-control" id="question1" placeholder="Enter a question" name="question1"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype1" id="questiontype1">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority1" id="priority1">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+             <option value = "4"> 4 </option>
+            </select>
+          <br>
+          <label for="pwd">Question 2:</label>
+          <input type="text" class="form-control" id="question2" placeholder="Enter a question" name="question2"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype2" id="questiontype2">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority2" id="priority2">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+             <option value = "4"> 4 </option>
+            </select>
+          <br>
+          <label for="pwd">Question 3:</label>
+          <input type="text" class="form-control" id="question3" placeholder="Enter a question" name="question3"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype3" id="questiontype3">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority3" id="priority3">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+             <option value = "4"> 4 </option>
+           </select>
+          <br>
+          <label for="pwd">Question 4:</label>
+          <input type="text" class="form-control" id="question4" placeholder="Enter a question" name="question4"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype4" id="questiontype4">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority4" id="priority4">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+             <option value = "4"> 4 </option>
+           </select>
+    	</div>
+        </div>
+    </div>
+
+    <div class="block" id="5" style="display: none;">
+        <div class="form-group">
+    	<div class="col-6">
+          <label for="pwd">Question 1:</label>
+          <input type="text" class="form-control" id="question1" placeholder="Enter a question" name="question1"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype1" id="questiontype1">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority1" id="priority1">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+             <option value = "4"> 4 </option>
+             <option value = "5"> 5 </option>
+           </select>
+          <br>
+          <label for="pwd">Question 2:</label>
+          <input type="text" class="form-control" id="question2" placeholder="Enter a question" name="question2"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype2" id="questiontype2">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority2" id="priority2">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+             <option value = "4"> 4 </option>
+             <option value = "5"> 5 </option>
+           </select>
+          <br>
+          <label for="pwd">Question 3:</label>
+          <input type="text" class="form-control" id="question3" placeholder="Enter a question" name="question3"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype3" id="questiontype3">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority3" id="priority3">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+             <option value = "4"> 4 </option>
+             <option value = "5"> 5 </option>
+           </select>
+          <br>
+          <label for="pwd">Question 4:</label>
+          <input type="text" class="form-control" id="question4" placeholder="Enter a question" name="question4"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype4" id="questiontype4">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority4" id="priority4">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+             <option value = "4"> 4 </option>
+             <option value = "5"> 5 </option>
+           </select>
+          <br>
+          <label for="pwd">Question 5:</label>
+          <input type="text" class="form-control" id="question5" placeholder="Enter a question" name="question5"><br>
+           <label for="Question Type">Question Type:</label>
+           <select name="questiontype5" id="questiontype5">
+             <option value =  "Opting_Survey"   > Opting Survey </option>
+             <option value = "Call_Rating" > Call Rating </option>
+             <option value = "Comment"> Comments </option>
+           </select>
+           <br>
+           <label for="Priority">Priority:</label>
+           <select name="priority5" id="priority5">
+             <option value = "1" > 1 </option>
+             <option value = "2"> 2 </option>
+             <option value = "3"> 3 </option>
+             <option value = "4"> 4 </option>
+             <option value = "5"> 5 </option>
+           </select>
+    	</div>
+        </div>
+    </div>
+   <button type="submit" class="btn btn-primary" name = "submit" id = "submit">Create</button>
+  </form>
+</div>
+</div>
+</div>
+</body>
+</html>

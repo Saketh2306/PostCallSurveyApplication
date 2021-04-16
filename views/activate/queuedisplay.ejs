@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/home.css">
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #ddd;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #666;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #4CAF50;
+        }
+
+        input[type=submit] {
+            background-color: #ADD8E6;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: center;
+        }
+        .btn {
+          background-color: #f4511e;
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-align: center;
+          font-size: 16px;
+          margin: 4px 2px;
+          opacity: 0.6;
+          transition: 0.3s;
+        }
+        .btn:hover {opacity: 1}
+    </style>
+    <link rel="ICON" href="img/favicon.ico" type="image/ico" />
+</head>
+
+<body>
+<ul>
+  <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/speechsoft.png" alt="Smiley face" width="120" height="40"></li>
+  <li style="float:right"><a href="/login">Logout</a></li>
+  <li style="float:right"><a href="/home">Home</a></li>
+  <li style="float:right"><a href="/create">Create a Survey</a></li>
+  <li style="float:right"><a href="/edit">Edit a Survey</a></li>
+  <li style="float:right"><a href="/queue">Add queues to a survey</a></li>
+  <li style="float:right"><a href="/activate">Activate/Deactivate Queues</a></li>
+</ul>
+
+<div class="container">
+  <form method="POST" action = "/submit">
+  <br><br><br><br>
+  <h3><%= survey_name %> Survey</h3>
+  <br>
+  <br>
+    <% for(var i=0; i < survey_records.length; i++) { %>
+        <p> <%= i + 1 %>. <%= survey_records[i].Queue_Name %> </p>
+        <label class="radio-inline">
+            <input type="radio" name="optradio" checked>Option 1
+        </label>
+        <br><br>
+    <% } %>
+  <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "submit" class = "btn" name = "submit" value = "Generate Report"><br><br>
+ <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><footer>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Speech Soft Solutions &copy; 2016</footer>
+</form>
+</div>
+
+</body>
+</html>

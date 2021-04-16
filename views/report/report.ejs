@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Survey Reports</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet prefetch' href='https://necolas.github.io/normalize.css/3.0.1/normalize.css'>
+    <link rel="stylesheet" href="css/home.css">
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #ddd;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #666;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #4CAF50;
+        }
+
+        input[type=submit] {
+            background-color: #ADD8E6;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: center;
+        }
+        .btn {
+          background-color: #f4511e;
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-align: center;
+          font-size: 16px;
+          margin: 4px 2px;
+          opacity: 0.6;
+          transition: 0.3s;
+        }
+        .hidden {
+          display: none;
+        }
+
+        .nothidden {
+
+        }
+        .btn:hover {opacity: 1}
+    </style>
+    <link rel="ICON" href="img/favicon.ico" type="image/ico" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bootstrap.">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <% var i = 1; %>
+    <% optingMap.forEach(function(value, key) { %>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Survey Paricipation', 'Participant Count'],
+          ['Yes', <%= value.yes %>],
+          ['No', <%= value.no %>]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Graphical Report',
+            subtitle: "Caller's participation in the survey",
+          },
+          bars: 'vertical' // Required for Material Bar Charts.
+        };
+        var id = 'opting'+ <%= i%>
+        var chart = new google.charts.Bar(document.getElementById(id));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['User Participation', 'Percentage of participation'],
+          ['Yes',     <%= value.yes %>],
+          ['No',      <%= value.no %>],
+        ]);
+
+        var options = {
+          title: 'Opting Survey Percentage Report',
+          is3D: true,
+        };
+        var id = 'opting3d'+ <%= i%>
+        var chart = new google.visualization.PieChart(document.getElementById(id));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <% i = i + 1 %>
+    <% });%>
+
+
+    <% var i = 1; %>
+    <% callRatingMap.forEach(function(value, key) { %>
+
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Rating scale', 'Number of participants who gave that rating'],
+          ['1', <%= value.rating_1 %>],
+          ['2', <%= value.rating_2 %>],
+          ['3', <%= value.rating_3 %>],
+          ['4', <%= value.rating_4 %>],
+          ['5', <%= value.rating_5 %>]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Graphical Report',
+            subtitle: "Statistics on various caller's rating",
+          },
+          bars: 'vertical' // Required for Material Bar Charts.
+        };
+        var id = 'callrating' + <%= i%>;
+        var chart = new google.charts.Bar(document.getElementById(id));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Call Rating', 'Percentage of people who gave that rating'],
+          ['Rating 1', <%= value.rating_1 %>],
+          ['Rating 2',      <%= value.rating_2 %>],
+          ['Rating 3',  <%= value.rating_3 %>],
+          ['Rating 4', <%= value.rating_4 %>],
+          ['Rating 5',    <%= value.rating_5 %>]
+        ]);
+
+        var options = {
+          title: 'Call Rating Report',
+          is3D: true,
+        };
+        var id = 'callrating3d' + <%= i%>
+        var chart = new google.visualization.PieChart(document.getElementById(id));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <% i = i + 1 %>
+    <% });%>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Survey Paricipation', 'Participant Count'],
+          ['Yes', <%= yes_count %>],
+          ['No', <%= no_count %>]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Graphical Report',
+            subtitle: "Caller's participation in the survey",
+          },
+          bars: 'vertical' // Required for Material Bar Charts.
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Rating scale', 'Number of participants who gave that rating'],
+          ['1', <%= rating_1 %>],
+          ['2', <%= rating_2 %>],
+          ['3', <%= rating_3 %>],
+          ['4', <%= rating_4 %>],
+          ['5', <%= rating_5 %>]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Graphical Report',
+            subtitle: "Statistics on various caller's rating",
+          },
+          bars: 'vertical' // Required for Material Bar Charts.
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_material1'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Call Rating', 'Percentage of people who gave that rating'],
+          ['Rating 1', <%= rating_1 %>],
+          ['Rating 2',      <%= rating_2 %>],
+          ['Rating 3',  <%= rating_3 %>],
+          ['Rating 4', <%= rating_4 %>],
+          ['Rating 5',    <%= rating_5 %>]
+        ]);
+
+        var options = {
+          title: 'Call Rating Report',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['User Participation', 'Percentage of participation'],
+          ['Yes',     <%= yes_count %>],
+          ['No',      <%= no_count %>],
+        ]);
+
+        var options = {
+          title: 'Opting Survey Percentage Report',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('opting_survey_3d'));
+        chart.draw(data, options);
+      }
+    </script>
+
+</head>
+
+<body>
+<ul>
+  <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/speechsoft.png" alt="Smiley face" width="120" height="40"></li>
+  <li style="float:right"><a href="/login">Logout</a></li>
+  <li style="float:right"><a href="/home">Home</a></li>
+  <li style="float:right"><a href="/create">Create a Survey</a></li>
+  <li style="float:right"><a href="/queue">Add queues to a survey</a></li>
+  <li style="float:right"><a href="/activate">Activate/Deactivate Queues</a></li>
+</ul>
+<div class="container">
+<div class="row header" style="text-align:center;color:green">
+<h3>Survey Report: <%= survey %></h3>
+<h3>Selected Queue: <%= queue %></h3>
+<h3>From: <%= from_date %>    To: <%= to_date %> </h3>
+<br><br>
+</div>
+<br>
+<% if (data_length == 0) { %>
+<h3>There is no data present in the database for the given time period </h3>
+<% } %>
+<br>
+
+<div class="call_rating" style="display: none;">
+<h3 style="text-align: left; color:green">1. Call Rating Reports</h3>
+<br>
+<table id="myTable" class="table table-striped" >
+        <thead>
+          <tr>
+            <th>Number of people who gave rating for the call</th>
+            <th>Average rating for the call</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= total_rating %></td>
+            <td><%= average_rating %></td>
+          </tr>
+        </tbody>
+      </table>
+      <br><br>
+      <div style="width: 100%" >
+        <div id="barchart_material1" style="float: left; width: 50%; height: 500px; display: block"></div>
+        <div id="piechart_3d" style="float: left; width: 50%; height: 600px; display: block"></div>
+        <br><br>
+      </div>
+</div>
+
+
+
+<div class="Opting_Survey" style="display: none;">
+<h3 style="float: left; color:green; display: block">2. Opting Survey Reports</h3>
+<br>
+<table id="myTable" class="table table-striped" >
+        <thead>
+          <tr>
+            <th>Number of respondents choosing to participate in the survey</th>
+            <th>Number of respondents choosing not to participate in the survey</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= yes_count %></td>
+            <td><%= no_count %></td>
+          </tr>
+        </tbody>
+      </table>
+      <br><br>
+      <div style="width: 100%" >
+        <div id="barchart_material" style="float: left; width: 50%; height: 500px; display: block"></div>
+        <div id="opting_survey_3d" style="float: left; width: 50%; height: 600px; display: block"></div>
+        <br><br>
+      </div>
+  </div>
+
+
+
+<div class="Comments" style="display: none;">
+<h3 style="text-align: left; color:green"> 3. Comment Reports</h3>
+<br>
+<table id="myTable" class="table table-striped" >
+        <thead>
+          <tr>
+            <th>Caller ANI</th>
+            <th>Feedback given by the caller</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% for (var i = 0; i < comments.length; i++) { %>
+          <tr>
+            <td><%= comments[i].ANI%></td>
+            <td><%= comments[i].Response%></td>
+          </tr>
+        <% } %>
+        </tbody>
+      </table>
+</div>
+
+
+<div class="Opting_Survey" >
+<h3 style="float: left; color:green; display: block">1. Opting Survey Reports</h3>
+<br><br><br>
+<% var i = 1; %>
+<% optingMap.forEach(function(value, key) { %>
+<h4 style="color:green; display: block; align: left;">Question <%= i%>: <%= key %></h4>
+<table id="myTable" class="table table-striped" >
+        <thead>
+          <tr>
+            <th>Number of respondents choosing to participate in the survey</th>
+            <th>Number of respondents choosing not to participate in the survey</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= value.yes %></td>
+            <td><%= value.no %></td>
+          </tr>
+        </tbody>
+      </table>
+      <br><br>
+      <div style="width: 100%" >
+        <% var id = "opting" + i; %>
+        <% var id1 = "opting3d" + i; %>
+        <div id= <%= id %> style="float: left; width: 50%; height: 500px; display: block"></div>
+        <div id= <%= id1 %> style="float: left; width: 50%; height: 600px; display: block"></div>
+        <br><br>
+      </div>
+    <% i = i + 1 %>
+    <% });%>
+  </div>
+
+<br><br><br>
+
+
+<div class="call_rating" >
+<h3 style="text-align: left; color:green">2. Call Rating Reports</h3>
+<br>
+<% var i = 1; %>
+<% callRatingMap.forEach(function(value, key) { %>
+<h4 style="color:green; display: block; align: left;">Question <%= i%>: <%= key %></h4>
+<table id="myTable" class="table table-striped" >
+        <thead>
+          <tr>
+            <th>Number of people who gave rating for the call</th>
+            <th>Average rating for the call</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= value.total_ratings %></td>
+            <td><%= value.average %></td>
+          </tr>
+        </tbody>
+      </table>
+      <br><br>
+      <div style="width: 100%" >
+        <% var id = "callrating" + i; %>
+        <% var id1 = "callrating3d" + i; %>
+        <div id=<%= id %> style="float: left; width: 50%; height: 500px; display: block"></div>
+        <div id=<%= id1 %> style="float: left; width: 50%; height: 600px; display: block"></div>
+        <br><br>
+      </div>
+      <% i = i + 1 %>
+      <% });%>
+</div>
+<br><br><br><br>
+
+<div class="Comments" >
+<h3 style="text-align: left; color:green"> 3. Comment Reports</h3>
+<br>
+<table id="myTable" class="table table-striped" >
+        <thead>
+          <tr>
+            <th>Caller ANI</th>
+            <th>Feedback given by the caller</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% for (var i = 0; i < comments.length; i++) { %>
+          <tr>
+            <td><%= comments[i].ANI%></td>
+            <td><%= comments[i].Response%></td>
+          </tr>
+        <% } %>
+        </tbody>
+      </table>
+</div>
+<br><br><br>
+
+<div style="display: none;" >
+<table id="myTable" class="table table-striped" >
+        <thead>
+          <tr>
+            <th>Number of respondents choosing to participate in the survey</th>
+            <th>Number of respondents choosing not to participate in the survey</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3</td>
+            <td>2</td>
+          </tr>
+        </tbody>
+      </table>
+      <br><br>
+    <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+  </div>
+
+<div style="display: none;" >
+<table id="myTable" class="table table-striped" >
+        <thead>
+          <tr>
+            <th>Number of people who gave rating for the call</th>
+            <th>Average rating for the call</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>5</td>
+            <td>4.2</td>
+          </tr>
+        </tbody>
+      </table>
+      <br><br>
+    <div id="barchart_material1" style="width: 900px; height: 500px;"></div>
+</div>
+
+<div style="display: none;" >
+<table id="myTable" class="table table-striped" >
+        <thead>
+          <tr>
+            <th>Caller ANI</th>
+            <th>Rating given by the user</th>
+            <th>Feedback given by the caller</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>+14695607574</td>
+            <td>3</td>
+            <td>Agent handled the call properly</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+</div>
+</body>
+<script>
+$(document).ready(function(){
+    $('#myTable').dataTable();
+});
+</script>
+</html>
